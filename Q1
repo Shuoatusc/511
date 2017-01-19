@@ -1,0 +1,18 @@
+Y=rand(50,1)>.5; % generate 50 times-tossing 
+Len=1; 
+Lenmax=1;
+for T=2:50  %loop
+if Y(T)==Y(T-1); % means this is still a run
+Len=Len+1;
+else   % run ends here
+if Len>Lenmax  % determine whether this is the longest SO FAR
+Lenmax=Len;
+end
+Len=1; %reset the run length
+end
+end
+hist(Y,2)  % 2 bins are enough
+disp('Longest Run of Heads')
+disp(Lenmax)
+disp('Number of Heads')
+disp(sum(Y)) % Y contains only 1 and 0 
