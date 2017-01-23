@@ -1,0 +1,16 @@
+X = rand(100, 1) > .5; % generate 100 tosses
+RunLength = 0;
+RunNumber = 0;
+box = []; % build a matrix to store every run length
+for T=1:100 % loop
+  if (X(T) == 1)  % HEAD 
+    RunLength = RunLength + 1; %Record the runlength
+  else             % Tail 
+    if (RunLength > 0) % get rid of 0
+      RunNumber = RunNumber + 1; 
+      box(RunNumber) = RunLength;
+      RunLength = 0; %reset
+    end
+  end
+end
+hist(box)
