@@ -1,0 +1,18 @@
+T= input('type a closing run value:');
+NumTosses=0;
+RunHeads=0;
+while 1  % keep the loop running
+    tmp = rand()>.5;
+    if tmp == 1;%Head
+        NumTosses=NumTosses+1; %always count +1
+        RunHeads=RunHeads+1; 
+        if RunHeads>=T;  %limit
+        break
+        end
+    else
+        NumTosses=NumTosses+1;
+        RunHeads=0; %reset
+    end
+end
+disp('number of tosses until end')
+disp(NumTosses)
