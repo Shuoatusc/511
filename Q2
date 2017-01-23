@@ -1,0 +1,18 @@
+Y=rand(200,1)>.2; % generate 50 times-tossing P[HEAD]=0.8
+Len=1;
+Lenmax=1;
+for T=2:200  %loop
+if Y(T)==Y(T-1);  %HEAD
+Len=Len+1;
+else  %RUN ENDS HERE
+if Len>Lenmax  
+Lenmax=Len; 
+end
+Len=1; %RESET
+end
+end
+hist(Y,2)
+disp('Longest Run of Heads')
+disp(Lenmax)
+disp('Number of Heads')
+disp(sum(Y)) % Y contains only 1 and 0 
