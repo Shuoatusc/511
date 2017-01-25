@@ -1,0 +1,22 @@
+clear
+T=randi([0,9],1,100000);
+hist(T,100)
+n0=sum(T==0);
+n1=sum(T==1);
+n2=sum(T==2);
+n3=sum(T==3);
+n4=sum(T==4);
+n5=sum(T==5);
+n6=sum(T==6);
+n7=sum(T==7);
+n8=sum(T==8);
+n9=sum(T==9);
+n10=sum(T==10);
+x=[n0,n1,n2,n3,n4,n5,n6,n7,n8,n9,n10];
+x_theo=[0,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000];
+ChisquaredTest = sum((x-x_theo).^2./x_theo);
+ChisquaredThreshold_95 = chi2inv(0.95,10);
+disp('chi-square test statistic=')
+disp(ChisquaredTest)
+disp('Chi-squared Threshold for 95%=')
+disp(ChisquaredThreshold_95)
