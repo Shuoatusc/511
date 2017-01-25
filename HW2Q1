@@ -1,0 +1,29 @@
+clear;
+for i=1:100000;    %generate this sampling for 100000 times
+dat(i)=5*rand(1,1)-3;  %define the interval[-3,2]
+end
+hist(dat)
+exmean=(sum(dat))/100000;
+variance=var(dat);
+disp('experimental mean:')
+disp(exmean)
+disp('theoretical mean:')
+disp((-3+2)/2)
+disp('experimental variance:')
+disp(variance)
+disp('theoretical variance:')
+disp(25/12)
+%bootstrapping for sample mean
+M=bootstrp(1000,@mean,dat);
+bdat=sort(M);
+hist(bdat,100);
+figure
+c=quantile(bdat,[0.025,0.975 ]);
+N=bootstrp(1000,@std,dat);
+bstd=sort(N);
+hist(bstd,100)
+c2=quantile(bstd,[0.025,0.975 ]);
+disp('bootstrap confidence interval(95%) for sample mean')
+disp(c)
+disp('bootstrap confidence interval(95%) for standard deviation')
+disp(c2)
