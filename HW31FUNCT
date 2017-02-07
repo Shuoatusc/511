@@ -1,0 +1,14 @@
+function [ ProRej ] = Probofrejection( NumSamp )
+% 
+%   
+NumRej=0;
+for i=1:10000;
+   Y=[ones(1,6),zeros(1,119)];
+   B=Y(randperm(125,NumSamp));
+      if sum(B)>0 
+             NumRej=NumRej+1;
+      end
+end
+ProRej=NumRej/10000;
+end
+
