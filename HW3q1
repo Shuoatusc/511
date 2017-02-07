@@ -1,0 +1,14 @@
+
+NumSamp=5;
+while 1
+    P=Probofrejection(NumSamp);
+    if P<0.95
+       NumSamp=NumSamp+1;
+    else
+    break
+    end
+end
+disp('fewest sampling number=')
+disp(NumSamp)
+disp('Probability of rejection=')
+disp(P)        
