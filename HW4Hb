@@ -1,0 +1,6 @@
+function h = Hb( ~ )
+% replaced function for Q1b
+r=rand;
+h=2*exp(-(r^(-1)-1)^2)*r^(-2);  % *2 to represent the (-Inf,0) part
+end
+
