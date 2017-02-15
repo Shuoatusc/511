@@ -1,0 +1,7 @@
+function h=Hc(~)
+% g(x,y) for Q1c
+a=rand;
+b=rand;
+h=exp(-(a+b)^2);
+end
+
