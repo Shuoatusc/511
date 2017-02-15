@@ -1,0 +1,9 @@
+clear;
+for k=1:1000000    %  in order to make result more precise, we take k=1000000
+A(k)=Hc;
+end
+AnsMCc=sum(A/1000000)  %  Monte Carlo simulation
+syms x y;
+f = exp(-(x+y)^2);
+a=int(int(f, x, 0, 1), y, 0, 1);
+AnsTheoc=simple(a)
