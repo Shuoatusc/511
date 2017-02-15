@@ -1,0 +1,6 @@
+function h=Ha(~)
+% replaced function for Q1a
+r=rand;
+h=4*exp(16*r^2-12*r+2);  % to have a [0,1] interval, we have a replaced h(r) 
+end
+
