@@ -1,0 +1,18 @@
+clear
+for i=1:10
+x(i)=Z;
+end
+t = 0 : 0.05 : 10;
+Xtheo = chi2cdf(t , 4);
+x = sort(x);
+figure(1)
+stairs(x,1/10:1/10:1,'b','linewidth',2);
+hold on
+grid on
+plot(t,Xtheo,'r--','linewidth',2);
+hold off
+legend('Empirical cdf','Theoretical cdf');
+ylim([0 1.05]);
+title('Chi-squared random variable');
+xlabel('x');
+ylabel('F(x)');
