@@ -1,0 +1,36 @@
+clear
+%  initial value of all variable
+T=100;     % we simulate this server for 100 hours
+Lamda=20;  % lamda(t)<=19
+t=0;       % we call the very first job come in at time t=0
+Ts=0;      % Ts is the interval until next job come in
+Na=0;      % Na is the number of arrivals, Nd is the number of departures
+Nd=0;   
+n=0;       % SS is the system state variable, which means the number of jobs in the system
+Ta=0;      % Ta is the time of the next arrival after t
+Td=inf;    % Td is the servering time
+       
+%  generate lamda according to t
+
+while (t<100)
+U1=rand;
+t=t-(1/Lamda)*log(U1);
+U2=rand;
+if (U2<=(Generate_lamda(t)/Lamda))
+     Ta=t;
+     Td=exprnd(1/25);
+     break;
+end
+if(Ta<=Td)      % A new job comes in before current job been finished 
+    t=Ta;
+    n=n+1;
+elseif(Td<Ta)
+    while (Td<Ta)  % System goes on one break
+   Td=Td+
+
+
+    
+
+
+  
+
