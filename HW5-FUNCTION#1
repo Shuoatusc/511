@@ -1,0 +1,10 @@
+function [ La ] = Generate_lamda( t )
+% generate lamda(t) according to t
+t1=t-floor(t/10)*10;
+if (t1<5)  
+         La=3*t1+4;
+else
+         La=(-3)*t1+34;
+end
+end
+
