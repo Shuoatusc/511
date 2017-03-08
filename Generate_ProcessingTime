@@ -1,0 +1,5 @@
+function [ TP ] = Generate_ProcessingTime(  )
+TP=exprnd(1/25);
+
+end
+
