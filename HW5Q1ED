@@ -1,0 +1,74 @@
+clear
+t=0;  % current event time
+n=0;  % number of jobs in queue
+Top=0;% time of this server to work
+counter_breakTime=0;
+while(t<=100)
+if(n==0)              % there is no job in queue
+Ta=t+Generate_TA(t);% generate the very first incoming job
+Top=Top+Generate_BreakTime;
+while(Top<Ta)     % if the server begin operation and there is no job, it goes to break
+        Top=Top+Generate_BreakTime;   % we let it break until it weaks up finding a arrival 
+end
+    % we have Time of operation >=Ta from now on
+    counter_breakTime=counter_breakTime+(Top-t);  %count the breaktime  
+    t=Ta;
+        while(Ta<Top)      % this is the situation after first break
+        n=n+1;             % add one into the queue
+        Ta=Ta+Generate_TA(t);% we get the next incoming job
+        end
+       
+        % after this while loop, we get the t that gives that next incoming
+        % job will pass the time of weaking up
+        % from now on, Ta>Top,T<Top, n denotes the number of jobs waiting in queue
+        % n>=1
+       t=Top; % This is the time our server began to work while we got jobs in queue and Ta is ahead of us  
+        
+else    % this means that we got we got jobs in queue
+      
+          Top=Top+Generate_ProcessingTime;% We generate the time of job done
+        while(Top<Ta) % we finish one job before newest job coming in
+            n=n-1;  % we killed one job
+            Top=Top+Generate_ProcessingTime;   % we calculate the time of next job get done
+            if (n<1)      % so we finish all the jobs in queue
+             break;       % so then we leave the loop
+            end   
+        end
+         
+       % so if we get out of the loop above, there could be 3 cases:
+       % case#1: n=0(we finish all jobs) and Td <Ta. It's clear that in
+       % this case, we are going to break
+       % case#2: n=0 and Td>Ta. We finish our last jobs and find out that
+       % there has been new job(s) come in
+       % case#3: Td>Ta and n>0: so this case means that we still got jobs
+       % in queue, and there are news jobs come in before we finish current
+       % job
+       % for case#2 and case#3, we have Td>Ta. Since at the begining, we don't have Ta, we started from Td, so we
+       % calculate to t=Td. Since when Ta<Td, we let time point t=Ta and generate new Ta from that t. If new Ta is smaller than Td, so add one to the n. 
+       % here comes the difference between case#2 and case#3: case#2
+       % started from n=0, case#3 started from n>0. So basically they are
+       % the same.
+     
+       
+       %  case#1
+       if ((n==0)&&(Top<Ta))
+           t=Top;   % since we have t=Td, we are ready to loop
+       end
+       
+       
+       %  case#2 and case#3
+       if(Ta<Top)
+           t=Ta;
+       end
+       
+       % we count t to Td
+      
+      while(Ta<Top)     % just for case#2#3
+      n=n+1;           
+      Ta=Ta+Generate_TA(t);
+      end
+      t=Top;
+end       
+end           
+        
+
