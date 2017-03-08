@@ -1,0 +1,5 @@
+function [ BreakTime ] = Generate_BreakTime(  )
+BreakTime=0.3*rand;
+
+end
+
