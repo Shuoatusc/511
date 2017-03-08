@@ -1,0 +1,19 @@
+function [TA] = Generate_TA(t)
+% generate lamda(t) according to t
+t1=t-floor(t/10)*10;
+if (t1<5)  
+         La=3*t1+4;
+else
+         La=(-3)*t1+34;
+end
+% Generate Ta from t
+while 1
+U1=rand;
+t=t-(1/19)*log(U1);
+U2=rand;
+if (U2<=(La/19))
+     TA=t;
+     break;
+end
+end
+end
