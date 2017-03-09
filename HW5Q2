@@ -1,0 +1,53 @@
+clear;
+n1=0;    % the number of packets in the buffer#1 at the begining
+n2=0;    % the number of packets in the buffer#2 at the begining
+N1=[];
+N2=[];
+P=[];
+T1=rand>0.5;      % we define T=1 as output#1, T=0 as output#0
+T2=rand>0.5; 
+for p=0.1:0.1:1
+for k=1:200
+    if((n1>0)&&(n2==0))    % when there is packet in #1, but there is no packet in#2
+            % In this case, we don't care about which output to go
+            n1=n1-1;  % we let go packet in#1
+           
+          elseif((n1==0)&&(n2>0))     % when no packet in #1, packet in#2
+                n2=n2-1;             % we let go of #2
+                             
+                elseif((n1>0)&&(n2>0))  % there are packets in both buffers
+                                 
+       % below is discussed under above condition#3                   
+                    
+                    if(T1==T2)       % both packets want to go to a same output
+                        if(rand>0.5) % since r1=r2=0.5. We define rand>0.5 to let #1 go 
+                            n1=n1-1; % we let one cargo leave#1
+                            T1=rand>0.5;  % we let #1 choose a new output 
+                        else         % this is when the last rand<0.5, so we let #2 go 
+                            n2=n2-1; % we let one cargo leave#2
+                            T2=rand>0.5;  % we let #2 choose a new output
+                        end               %
+                    else                  % this is the condition where cargos in #1 and #2 go to different output port
+                        n2 = n2 -1;       % we let go cargo from #2
+                        n1 = n1 -1;       % we let go cargo from #1
+                        T1 = rand > 0.5;  % generate a new output for #1
+                        T2 = rand > 0.5;  % generate a new output for #2
+                    end
+       % end of discussion of condition#3
+                    
+    end  
+          
+   % after all the operations, we have to add new cargo in #1 and #2
+   % for input#1
+   if(rand<p==1) % if rand<p, we call there will be cargo come in to #1
+   n1=n1+1;
+   end
+   if(rand<p==1) % if rand<p, we call there will be cargo come in to #2
+   n2=n2+1;    
+   end
+   
+end
+N1(10*p)=n1;
+N2(10*p)=n2;
+end
+ 
