@@ -92,6 +92,12 @@ ylabel('efficiency of packets processed by switch per time slot')
 mean_buffer1=mean(N1);    % mean of number in buffer1
 mean_buffer2=mean(N2);   % mean of number in buffer2
 mean_passperslot=mean(P); % mean of number of packets processed by swith per time slot
+E=P/2;                    % E is the matrix of efficiency
+
+% we are going to calculate a 95% confidence interval for the overall effiency of the switch
+
+Efficiency_data=sort(E);
+ConfidInterval=quantile(Efficiency_data,[0.025,0.975]);
 
 
 
