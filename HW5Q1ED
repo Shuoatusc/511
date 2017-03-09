@@ -1,8 +1,8 @@
 clear
-BT=[];
-index=0;
-for counter=1:100
-index=index+1;
+BT=[];                % matrix to store breaktime of every trial
+index=0;              % the index of matrix BT
+for counter=1:100     % to get the expectation, we do 100 times trials
+index=index+1;        
 t=0;  % current event time
 n=0;  % number of jobs in queue
 Top=0;% time of this server to work
