@@ -1,0 +1,92 @@
+clear;
+close all
+n1=0;    % the number of packets in the buffer#1 at the begining
+n2=0;    % the number of packets in the buffer#2 at the begining
+N1=[];   % we build this matrix to store n1
+N2=[];   % we build this matrix to store n2
+T1=rand<0.75;      % we define T1=1 as input#1 goes to output#1, T1=0 as input#1 goes to output#2
+T2=rand<0.75;      % we define T2=1 as input#2 goes to output#1, T2=0 as input#2 goes to output#2
+index=0;
+ 
+P=[];             % this is the matrix to store number of packets passed per time slot from specific p 
+for p=0:0.01:1
+    index=index+1;
+    pass_counter=0; %
+    NumpassPslot=0;   % this is the number of passed cargo 
+
+for k=1:100
+    if((n1>0)&&(n2==0))    % when there is packet in #1, but there is no packet in#2
+            % In this case, we don't care about which output to go
+            n1=n1-1;  % we let go packet in#1
+            pass_counter=pass_counter+1; % 1 cargo passed
+          
+         elseif((n1==0)&&(n2>0))     % when no packet in #1, packet in#2
+                n2=n2-1;             % we let go of #2
+            pass_counter=pass_counter+1;                 
+                
+                elseif((n1>0)&&(n2>0))  % there are packets in both buffers
+                                 
+       % below is discussed under above condition#3                   
+                    
+                    if(T1==T2)       % both packets want to go to a same output
+                        if(rand>0.5) % since r1=r2=0.5. We define rand>0.5 to let #1 go 
+                            n1=n1-1; % we let one cargo leave#1
+                            pass_counter=pass_counter+1;  % only 1 cargo passed
+                            T1=rand<0.75;  % we let #1 choose a new output 
+                        else         % this is when the last rand<0.5, so we let #2 go 
+                            n2=n2-1; % we let one cargo leave#2
+                            pass_counter=pass_counter+1;  %only 1 cargo passed
+                            T2=rand<0.75;  % we let #2 choose a new output
+                        end               %
+                    else                  % this is the condition where cargos in #1 and #2 go to different output port
+                        n2 = n2 -1;       % we let go cargo from #2
+                        n1 = n1 -1;       % we let go cargo from #1
+                        pass_counter=pass_counter+2;    % 2 cargos passed
+                        T1 = rand < 0.75;  % generate a new output for #1
+                        T2 = rand < 0.75;  % generate a new output for #2
+                    end
+       % end of discussion of condition#3
+                    
+    end  
+          
+   % after all the operations, we have to add new cargo in #1 and #2
+   % for input#1
+   if(rand<p==1) % if rand<p, we call there will be cargo come in to #1
+   n1=n1+1;
+   end
+   if(rand<p==1) % if rand<p, we call there will be cargo come in to #2
+   n2=n2+1;    
+   end
+   NumpassPslot=pass_counter/100;
+end
+N1(index)=n1;
+N2(index)=n2;
+P(index)=NumpassPslot;
+end
+
+plot(0:0.01:1,N1);
+title('distribution of buffer#1----p')
+xlabel('p')
+ylabel('number of packets in buffer#1')
+figure
+
+plot(0:0.01:1,N2)
+title('distribution of buffer#2----p')
+xlabel('p')
+ylabel('number of packets in buffer#2')
+figure
+
+plot(0:0.01:1,P)
+title('distribution of the number of packets processed by switch per time slot----p')
+xlabel('p')
+ylabel('number of packets processed by switch per time slot')
+figure
+
+plot(0:0.01:1,(P/2))
+title('distribution of the efficiency of packets processed by switch per time slot----p')
+xlabel('p')
+ylabel('efficiency of packets processed by switch per time slot')
+
+mean_buffer1=mean(N1);    % mean of number in buffer1
+mean_buffer2=mean(N2);   % mean of number in buffer2
+mean_passperslot=mean(P); % mean of number of packets processed by swith per time slot
